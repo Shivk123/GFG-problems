@@ -6,24 +6,26 @@ using namespace std;
 // } Driver Code Ends
 
 class Solution {
-  public:
-    void helper(int node, vector<int>&ans, vector<int>&vis, vector<vector<int>>&adj){
-        vis[node]=1;
+    private:
+    
+    void dfs(int node,vector<bool> &visited,vector<int> &ans,vector<vector<int>>& adj){
         ans.push_back(node);
-        
-        for(auto it: adj[node]){
-            if(!vis[it]){
-                helper(it, ans, vis, adj);
-            }
+        for(int it: adj[node]){
+            if(visited[it])continue;
+            visited[it]=true;
+            dfs(it,visited,ans,adj);
         }
-        return;
     }
     
+  public:
     vector<int> dfs(vector<vector<int>>& adj) {
-        int n=adj.size();
-        vector<int>vis(n,0);
-        vector<int>ans;
-        helper(0, ans, vis, adj);
+        const int source=0, n=adj.size();
+        vector<int> ans;
+        vector<bool> visited(n,false);
+
+        visited[source]=true;
+        
+        dfs(source,visited,ans,adj);
         return ans;
     }
 };
