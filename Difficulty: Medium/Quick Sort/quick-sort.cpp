@@ -14,9 +14,7 @@ void printArray(const vector<int>& arr) {
 
 class Solution {
   public:
-    // Function to sort an array using quick sort algorithm.
     void quickSort(vector<int>& arr, int low, int high) {
-        // code here
         if(low<high){
             int mid=partition(arr,low,high);
             quickSort(arr,low,mid-1);
@@ -25,24 +23,15 @@ class Solution {
     }
 
   public:
-    // Function that takes last element as pivot, places the pivot element at
-    // its correct position in sorted array, and places all smaller elements
-    // to left of pivot and all greater elements to right of pivot.
     int partition(vector<int>& arr, int low, int high) {
-    
-    int pivot = arr[high];
-  
-    int i = low - 1;
-
-    for (int j = low; j <= high - 1; j++) {
-        if (arr[j] < pivot) {
-            i++;
-            swap(arr[i], arr[j]);
+        int left=low,right=high,pivot=low;
+        while(left<right){
+            while(arr[left]<=arr[pivot] && left<=high)left++;
+            while(arr[right]>arr[pivot] && low<=right)right--;
+            if(left<right)swap(arr[left],arr[right]);
         }
-    }
-    
-    swap(arr[i + 1], arr[high]);  
-    return i + 1;
+        swap(arr[low],arr[right]);
+        return right;
     }
 };
 
